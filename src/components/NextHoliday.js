@@ -1,21 +1,11 @@
 import { formatDistanceToNow, isFuture, parseISO, subDays } from "date-fns";
 
 export default function NextHoliday(props) {
-  const formattedHolidays = props.holidays.holidays.map((holiday) => {
-    return {
-      ...holiday,
-      isFuture: isFuture(
-        new Date(
-          holiday.date.datetime.year,
-          holiday.date.datetime.month - 1,
-          holiday.date.datetime.day
-        )
-      ),
-    };
-  });
+  const formattedHolidays = props.formattedHolidays;
 
   let closestHoliday;
 
+  /* Looping through the array of holidays and finding the first one that is in the future. */
   for (let i = 0; i < formattedHolidays.length; i++) {
     if (formattedHolidays[i].isFuture === true) {
       closestHoliday = formattedHolidays[i];
@@ -45,8 +35,6 @@ export default function NextHoliday(props) {
     name: closestHoliday.name,
     nationalHoliday: closestHoliday.type[0] === "National holiday",
   };
-
-  // console.log(nextHoliday);
 
   return (
     <section className="flex flex-col items-center gap-3 justify-center text-center">
