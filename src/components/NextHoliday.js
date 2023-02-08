@@ -1,4 +1,5 @@
 import { formatDistanceToNow, isFuture, parseISO, subDays } from "date-fns";
+import { useEffect, useState } from "react";
 
 export default function NextHoliday(props) {
   const formattedHolidays = props.formattedHolidays;
@@ -20,18 +21,29 @@ export default function NextHoliday(props) {
     day: "numeric",
   };
 
+  const [calculatedTime, setCalculatedTime] = useState("");
+
+  useEffect(() => {
+    const getNewDate = () => {
+      const time = formatDistanceToNow(
+        new Date(
+          2023,
+          closestHoliday.date.datetime.month - 1,
+          closestHoliday.date.datetime.day
+        )
+      );
+      setCalculatedTime(time);
+    };
+
+    getNewDate();
+  }, [closestHoliday]);
+
   const nextHoliday = {
     dateString: parseISO(closestHoliday.date.iso).toLocaleDateString(
       "en-GB",
       formatOptions
     ),
-    timeFromNow: formatDistanceToNow(
-      new Date(
-        2023,
-        closestHoliday.date.datetime.month - 1,
-        closestHoliday.date.datetime.day + 1
-      )
-    ),
+    timeFromNow: calculatedTime,
     name: closestHoliday.name,
     nationalHoliday: closestHoliday.type[0] === "National holiday",
   };
