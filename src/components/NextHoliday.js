@@ -23,13 +23,15 @@ export default function NextHoliday(props) {
 
   const [calculatedTime, setCalculatedTime] = useState("");
 
+  console.log(Date.now());
+
   useEffect(() => {
     const getNewDate = () => {
       const time = formatDistanceToNow(
         new Date(
           2023,
           closestHoliday.date.datetime.month - 1,
-          closestHoliday.date.datetime.day
+          closestHoliday.date.datetime.day + 1
         )
       );
       setCalculatedTime(time);
