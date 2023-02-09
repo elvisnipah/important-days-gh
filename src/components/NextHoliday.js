@@ -29,13 +29,20 @@ export default function NextHoliday(props) {
         new Date(
           2023,
           closestHoliday.date.datetime.month - 1,
-          closestHoliday.date.datetime.day + 1
+          closestHoliday.date.datetime.day
         )
       );
       setCalculatedTime(time);
+      // console.log("refreshing");
     };
 
     getNewDate();
+
+    const refreshDate = setInterval(() => {
+      getNewDate();
+    }, 5000);
+
+    return () => clearInterval(refreshDate);
   }, [closestHoliday]);
 
   const nextHoliday = {
