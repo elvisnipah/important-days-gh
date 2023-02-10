@@ -29,7 +29,7 @@ export default function NextHoliday(props) {
         new Date(
           2023,
           closestHoliday.date.datetime.month - 1,
-          closestHoliday.date.datetime.day + 1
+          closestHoliday.date.datetime.day
         )
       );
       setCalculatedTime(time);
