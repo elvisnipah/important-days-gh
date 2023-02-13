@@ -62,7 +62,7 @@ export default function NextHoliday(props) {
         <section className="flex flex-col items-center gap-3 justify-center text-center">
             <p className="text-3xl font-bold">
                 {nextHoliday.timeFromNow === 0
-                    ? "Happy"
+                    ? "Today is "
                     : nextHoliday.timeFromNow > 1
                     ? `${nextHoliday.timeFromNow} days left till`
                     : `${nextHoliday.timeFromNow} day left till`}
